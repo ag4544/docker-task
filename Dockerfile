@@ -8,3 +8,8 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "/root/.m2"
+
+RUN cd /root/ && git clone https://github.com/ag4544/boxfuse-sample.git && cd ./boxfuse-sample/ && mvn package
+RUN cp /root/boxfuse-sample/target/hello-1.0.war /usr/local/tomcat/webapps
+RUN mv /usr/local/tomcat/webapps/hello-1.0/ /usr/local/tomcat/webapps/ROOT/
+CMD ["catalina.sh", "run"]
